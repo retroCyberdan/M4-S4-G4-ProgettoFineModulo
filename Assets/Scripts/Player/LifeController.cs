@@ -5,43 +5,29 @@ using UnityEngine.Events;
 
 public class LifeController : MonoBehaviour
 {
-    [SerializeField] private int _currentHP = 15;
-    [SerializeField] private int _maxHP = 15;
-    [SerializeField] private bool _fullHpOnAwake = true;
-
-    [SerializeField] private UnityEvent<int, int> _onHpChanged;
-    [SerializeField] private UnityEvent _onDeath;
-
-    public int GetHP() => _currentHP;
-    public int GetMaxHP() => _maxHP;
+    [SerializeField] private int _currentHP = 10;
+    [SerializeField] private int _maxHP = 10;
+    [SerializeField] private bool _fullHpOnAwake;
 
     private void Awake()
     {
-        if(_fullHpOnAwake)
-        {
-            SetHP(_maxHP);
-        }
-
-        _onHpChanged?.Invoke(_currentHP, _maxHP);
+        if(_fullHpOnAwake) SetHP(_maxHP);
     }
 
     public void SetHP(int hp)
     {
-        int oldHP = _currentHP;
         hp = Mathf.Clamp(hp, 0, _maxHP);
-        _currentHP = hp;
 
-        if(oldHP != _currentHP)
-        {
-            _onHpChanged?.Invoke(_currentHP, _maxHP);
-            if(_currentHP == 0)
-            {
-                _onDeath?.Invoke();
-            }
-        }
+        _currentHP = hp;
+        if (_currentHP == 0) Die();
     }
 
-    public void AddHP (int amount) => SetHP(_currentHP + amount);
+    public void AddHP(int amount) => SetHP(_currentHP + amount);
 
+    public void TakeDamage(int damage) => SetHP(_currentHP - damage);    
 
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 }

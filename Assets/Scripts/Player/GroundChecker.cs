@@ -12,7 +12,6 @@ public class GroundChecker : MonoBehaviour
     [SerializeField] private GROUND_CHECK_TYPE _groundCheckType = GROUND_CHECK_TYPE.CHECK_SPHERE; // <- assegno il valore di default
 
     public bool IsGrounded { get; private set; } // <- creo una property accessibile in lettura ma non in scrittura
-   
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

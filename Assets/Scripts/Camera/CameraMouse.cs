@@ -4,42 +4,25 @@ using UnityEngine;
 
 public class CameraMouse : MonoBehaviour
 {
-    public Transform target;           // <- il player o oggetto attorno a cui ruotare
-    public float distance = 5f;      // <- distanza dal target
-    public float xSpeed = 120f;      // <- velocità di rotazione orizzontale
-    public float ySpeed = 80f;       // <- velocità di rotazione verticale
+    [SerializeField] private Vector2 _turn;
+    [SerializeField] private float _sensitivity = .5f;
+    [SerializeField] private Vector3 _deltaMove;
+    [SerializeField] private float _speed = 1f;
+    [SerializeField] private GameObject _mover;
 
-    public float yMinLimit = -20f;     // <- limite minimo angolo verticale
-    public float yMaxLimit = 80f;      // <- limite massimo angolo verticale
-
-    private float x = 0f;
-    private float y = 0f;
-
-    void Start()
+    private void Start()
     {
-        Vector3 angles = transform.eulerAngles;
-        x = angles.y;
-        y = angles.x;
-
-        // Blocca il cursore (opzionale)
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
-    void LateUpdate()
+    private void Update()
     {
-        if (target)
-        {
-            x += Input.GetAxis("Mouse X") * xSpeed * Time.deltaTime;
-            y -= Input.GetAxis("Mouse Y") * ySpeed * Time.deltaTime;
+        _turn.x += Input.GetAxis("Mouse X") * _sensitivity;
+        _turn.y += Input.GetAxis("Mouse Y") * _sensitivity;
 
-            y = Mathf.Clamp(y, yMinLimit, yMaxLimit);
+        _mover.transform.localRotation = Quaternion.Euler(0, _turn.x, 0);
+        transform.localRotation = Quaternion.Euler(-_turn.y, 0, 0);
 
-            Quaternion rotation = Quaternion.Euler(y, x, 0);
-            Vector3 position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
-
-            transform.rotation = rotation;
-            transform.position = position;
-        }
+        _deltaMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _speed * Time.deltaTime;
     }
 }

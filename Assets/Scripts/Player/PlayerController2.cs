@@ -79,9 +79,9 @@ public class PlayerController2 : MonoBehaviour
 
                 // esegue un cambio di direzione smooth
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Quaternion smoothRotation = Quaternion.Slerp(_rigidbody.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime);
+                Quaternion smoothRotation = Quaternion.Slerp(_rigidbody.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
                 _rigidbody.MoveRotation(smoothRotation); // <- ruota il player tramite MoveRotation()
-                _rigidbody.MovePosition(_rigidbody.position + direction * (_currentSpeed * Time.fixedDeltaTime)); // <- eseguo il movimento tramite MovePosition()
+                _rigidbody.MovePosition(_rigidbody.position + direction * (_currentSpeed * Time.deltaTime)); // <- eseguo il movimento tramite MovePosition()
             }
         }
     }
@@ -90,8 +90,8 @@ public class PlayerController2 : MonoBehaviour
     {
         if (_h != 0 || _v != 0) // <- gestisco il movimento al variare di "h" o "v"
         {
-            float move = _v * _speed * Time.fixedDeltaTime;
-            float yaw = _h * _rotationSpeed * 10f * Time.fixedDeltaTime;
+            float move = _v * _speed * Time.deltaTime;
+            float yaw = _h * _rotationSpeed * 10f * Time.deltaTime;
 
             _rigidbody.MovePosition(_rigidbody.position + transform.forward * move);
             _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(0f, yaw, 0f));

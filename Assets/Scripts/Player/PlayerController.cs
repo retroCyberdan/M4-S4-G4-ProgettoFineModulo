@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_groundChecker.IsGrounded) _jumpCount = 0; // <- reset contatore dei salti se siamo a terra
 
-        if (Input.GetButtonDown("Jump") && _jumpCount < _maxJumps - 1)
+        if (Input.GetButtonDown("Jump") && _jumpCount < _maxJumps)
         {
             _rb.AddForce(transform.up * _jumpForce, ForceMode.Impulse);
             _jumpCount++;

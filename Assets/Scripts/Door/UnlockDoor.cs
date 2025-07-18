@@ -5,16 +5,17 @@ using UnityEngine;
 public class UnlockDoor : MonoBehaviour
 {
     [Header("Door Parameters")]
-    [SerializeField] private int requiredCoins = 10;
-    [SerializeField] private GameObject doorObject;
+    [SerializeField] private int _requiredCards = 3;
+    [SerializeField] private CardsManager _cardsCollector;
+    [SerializeField] private GameObject _doorObject;
 
     void Update()
     {
-        void OnTriggerEnter3D(Collider trigger)
+        void OnTriggerEnter(Collider trigger)
         {
-            if (trigger.CompareTag("Player") && CoinManager.Instance._totalCoins >= requiredCoins)
+            if (trigger.CompareTag("Player") && _cardsCollector._cards >= _requiredCards)
             {
-                doorObject.SetActive(false); // disattiva la porta (collider e visivo)
+                _doorObject.SetActive(false); // disattiva la porta (collider e visivo)
                 this.enabled = false;
             }
         }
