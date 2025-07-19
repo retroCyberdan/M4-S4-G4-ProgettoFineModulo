@@ -6,7 +6,7 @@ public class GroundChecker : MonoBehaviour
 {
     public enum GROUND_CHECK_TYPE {  RAYCAST, CHECK_SPHERE }
 
-    [Header("Ground Checker")]
+    [Header("Ground Checker Settings")]
     [SerializeField] private float _maxDistance = 0.1f;
     [SerializeField] private LayerMask _whatIsGround; // <- per selezionare il tipo di layer
     [SerializeField] private GROUND_CHECK_TYPE _groundCheckType = GROUND_CHECK_TYPE.CHECK_SPHERE; // <- assegno il valore di default

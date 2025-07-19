@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 641666649023016617}
-  - component: {fileID: 7844266308907992067}
   - component: {fileID: 357005902690505964}
+  - component: {fileID: 7844266308907992067}
   m_Layer: 0
   m_Name: Card_GateBlue
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   - {fileID: 8647012528034581310}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7844266308907992067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593542545141281283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a63977b318282b4aaed131c1a05832e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: 2
 --- !u!65 &357005902690505964
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +55,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7844266308907992067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593542545141281283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a63977b318282b4aaed131c1a05832e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 1
 --- !u!1001 &9190410232686701781
 PrefabInstance:
   m_ObjectHideFlags: 0

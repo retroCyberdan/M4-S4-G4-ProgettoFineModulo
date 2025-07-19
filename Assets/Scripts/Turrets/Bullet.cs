@@ -16,8 +16,8 @@ public class Bullet : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            LifeController target = collider.GetComponent<LifeController>();
-            target.TakeDamage(_damage);
+            LifeController life = collider.GetComponent<LifeController>();
+            life.AddHp(-_damage);
             Destroy(gameObject);
         }
     }

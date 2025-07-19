@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8528771675315042918}
-  - component: {fileID: 1228098201905335151}
   - component: {fileID: 399688665106704523}
+  - component: {fileID: 1228098201905335151}
   m_Layer: 0
   m_Name: Card_GateYellow
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   - {fileID: 485189024251715569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1228098201905335151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540882082041276108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a63977b318282b4aaed131c1a05832e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: 5
 --- !u!65 &399688665106704523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +55,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1228098201905335151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8540882082041276108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a63977b318282b4aaed131c1a05832e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 1
 --- !u!1001 &85856077107460122
 PrefabInstance:
   m_ObjectHideFlags: 0

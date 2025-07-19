@@ -9,9 +9,9 @@ public class UI_LifePanel : MonoBehaviour
     [SerializeField] private Image _fillableLifeBar;
     [SerializeField] private TMP_Text _lifeText;
 
-    public void UpdateGraphichs(int currentHp, int maxHp)
+    public void UpdateGraphics(int currentHp, int maxHp)
     {
-        _lifeText.text = "HP " + currentHp + "/" + maxHp;
-        _fillableLifeBar.fillAmount = (float)currentHp / maxHp;
-    }
+       _lifeText.text = "HP " + currentHp + "/" + maxHp;
+       _fillableLifeBar.fillAmount = (float)currentHp / maxHp;
+    }    
 }

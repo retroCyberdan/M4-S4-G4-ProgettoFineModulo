@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class CameraMouse : MonoBehaviour
 {
-    [SerializeField] private Vector2 _turn;
-    [SerializeField] private float _sensitivity = .5f;
-    [SerializeField] private Vector3 _deltaMove;
-    [SerializeField] private float _speed = 1f;
-    [SerializeField] private GameObject _mover;
+    [SerializeField] private Transform _player;
+    [SerializeField] private Vector3 _cameraOffset;
+
+    [Range(0.01f, 1f)]
+    [SerializeField] private float _smoothness = .5f;
+    [SerializeField] private bool _lookAtPlayer = false;
+    [SerializeField] private bool _rotateAroundPlayer = true;
+    [SerializeField] private float _rotationSpeed = 5f;
 
     private void Start()
     {
+        _cameraOffset = transform.position - _player.position;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        _turn.x += Input.GetAxis("Mouse X") * _sensitivity;
-        _turn.y += Input.GetAxis("Mouse Y") * _sensitivity;
+        if (_rotateAroundPlayer)
+        {
+            Quaternion cameraTurnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * _rotationSpeed, Vector3.up);
+            _cameraOffset = cameraTurnAngle * _cameraOffset;
+        }
+        Vector3 newPosition = _player.position + _cameraOffset;
+        transform.position = Vector3.Slerp(transform.position, newPosition, _smoothness);
 
-        _mover.transform.localRotation = Quaternion.Euler(0, _turn.x, 0);
-        transform.localRotation = Quaternion.Euler(-_turn.y, 0, 0);
-
-        _deltaMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * _speed * Time.deltaTime;
+        if (_lookAtPlayer || _rotateAroundPlayer) transform.LookAt(_player);
     }
 }

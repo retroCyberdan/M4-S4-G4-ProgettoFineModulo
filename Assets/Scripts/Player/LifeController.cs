@@ -5,29 +5,41 @@ using UnityEngine.Events;
 
 public class LifeController : MonoBehaviour
 {
-    [SerializeField] private int _currentHP = 10;
-    [SerializeField] private int _maxHP = 10;
-    [SerializeField] private bool _fullHpOnAwake;
+    [SerializeField] private int _currentHp = 20;
+    [SerializeField] private int _maxHp = 20;
+    [SerializeField] private bool _fullHpOnAwake = true;
+
+    [SerializeField] private UnityEvent<int, int> _onHpChanged;
+    [SerializeField] private UnityEvent _onDeath;
+
+    public int GetHp() => _currentHp;
+    public int GetMaxHp() => _maxHp;
 
     private void Awake()
     {
-        if(_fullHpOnAwake) SetHP(_maxHP);
+        if(_fullHpOnAwake) SetHp(_maxHp);
     }
 
-    public void SetHP(int hp)
+    public void SetHp(int hp)
     {
-        hp = Mathf.Clamp(hp, 0, _maxHP);
+        int oldHp = _currentHp;
 
-        _currentHP = hp;
-        if (_currentHP == 0) Die();
+        hp = Mathf.Clamp(hp, 0, _maxHp);
+
+        _currentHp = hp;
+
+        if(oldHp != _currentHp)
+        {
+            _onHpChanged?.Invoke(_currentHp, _maxHp);
+            if (_currentHp == 0) Die();
+        }        
     }
 
-    public void AddHP(int amount) => SetHP(_currentHP + amount);
-
-    public void TakeDamage(int damage) => SetHP(_currentHP - damage);    
+    public void AddHp(int amount) => SetHp(_currentHp + amount);
 
     private void Die()
     {
-        Destroy(gameObject);
+        Debug.Log($"Il personaggio {gameObject.name} è morto!");
+        _onDeath?.Invoke();
     }
 }

@@ -8,11 +8,11 @@ public class Cards : MonoBehaviour
     [SerializeField] private int _value;
     private bool _hasTriggered;
 
-    private CardsManager _cardsManager;
+    private UI_CardsManager _cardsManager;
 
     private void Start()
     {
-        _cardsManager = CardsManager.cM;
+        _cardsManager = UI_CardsManager.cardsManager;
     }
 
     void OnTriggerEnter(Collider collider)

@@ -6,9 +6,8 @@ public class TurretsController : MonoBehaviour
 {
     private enum TOWER_TYPE { STANDARD, RIFLE }
 
-    [Header("Turrets Configuration")]
+    [Header("Turrets Settings")]
     [SerializeField] private TOWER_TYPE _towerType;
-
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _head;
     [SerializeField] private Transform _barrelSpawnPoint;
@@ -26,6 +25,7 @@ public class TurretsController : MonoBehaviour
 
     void Update()
     {
+        // gestisco la rotazione della torretta (head) e sparo al player
         _distance = Vector3.Distance(_player.position, transform.position);
         if (_distance <= _detectionRange)
         {
@@ -38,14 +38,14 @@ public class TurretsController : MonoBehaviour
         }
     }
 
-    void ShootAtPlayer()
+    void ShootAtPlayer() // <- generazione del bullet
     {
         GameObject bulletClone = Instantiate(_bulletPrefab, _barrelSpawnPoint.position, _head.rotation);
         bulletClone.GetComponent<Rigidbody>().AddForce(_head.forward * 10f, ForceMode.Impulse);
         //Destroy(bulletClone, _lifeSpawn);
     }
 
-    void ShootByType()
+    void ShootByType() // <- gestione dello sparo secondo il tipo selezionato
     {
         switch (_towerType)
         {
@@ -59,7 +59,7 @@ public class TurretsController : MonoBehaviour
         }
     }
 
-    IEnumerator RifleShoot() // <- creo una coroutine per gestire lo sparo a raffica
+    IEnumerator RifleShoot() // <- coroutine per gestire lo sparo a raffica
     {
         int shots = 3;
         float delay = 0.15f;
