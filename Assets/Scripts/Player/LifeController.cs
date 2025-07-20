@@ -41,5 +41,6 @@ public class LifeController : MonoBehaviour
     {
         Debug.Log($"Il personaggio {gameObject.name} è morto!");
         _onDeath?.Invoke();
+        FindObjectOfType<GameManager>().LoseLevel();
     }
 }

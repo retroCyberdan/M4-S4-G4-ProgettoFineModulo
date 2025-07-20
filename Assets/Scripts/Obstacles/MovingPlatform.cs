@@ -1,38 +1,46 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private Transform _pointA;
-    [SerializeField] private Transform _pointB;
-    [SerializeField] private float _speed = 3f;
-    [SerializeField] private float _delay = 1f;
-    [SerializeField] private GameObject _platform;
+    [SerializeField] private Transform[] _waypoints;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _minDistance = .001f;
+    [SerializeField] private int _waitingTime = 3;
+    private int _currentWaypointIndex;
+    private bool _isWaiting;
 
-    private Vector3 _targetPosition;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        _platform.transform.position = _pointA.transform.position;
-        _targetPosition = _pointB.transform.position;
-        StartCoroutine(MovePlatform());
+        if (!_isWaiting) MovePlatform();
     }
 
-    IEnumerator MovePlatform()
+    void OnTriggerEnter(Collider collider)
     {
-        while (true)
+        if (collider.CompareTag("Player")) collider.transform.SetParent(gameObject.transform);
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.CompareTag("Player")) collider.transform.SetParent(null);
+    }
+
+    private void MovePlatform()
+    {
+        Vector3 target = _waypoints[_currentWaypointIndex].position;
+        transform.position = Vector3.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+
+        if (Vector3.SqrMagnitude(target - transform.position) < _minDistance * _minDistance)
         {
-            while ((_targetPosition - _platform.transform.position).sqrMagnitude > 0.01f)
-            {
-                _platform.transform.position = Vector3.MoveTowards(_platform.transform.position, _targetPosition, _speed * Time.deltaTime);
-                yield return null;
-            }
-
-            _targetPosition = _targetPosition == _pointA.transform.position ? _pointB.transform.position : _pointA.transform.position;
-
-            yield return new WaitForSeconds(_delay);
+            _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
+            _isWaiting = true;
+            StartCoroutine(WaitingTime());
         }
+    }
+
+    IEnumerator WaitingTime()
+    {
+        yield return new WaitForSeconds(_waitingTime);
+        _isWaiting = false;
     }
 }

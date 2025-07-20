@@ -27,15 +27,15 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
-    private void Awake()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        if (_groundChecker == null) _groundChecker = GetComponentInChildren<GroundChecker>(); // <- se non e`associata, assegno la componente al primo Child
     }
 
     private void Update()
     {
         OnInput();
-
     }
 
     private void FixedUpdate()
@@ -67,18 +67,24 @@ public class PlayerController : MonoBehaviour
 
     private void NormalMove() // <- permette di muovere il player normalmente
     {
-        if (_h != 0 || _v != 0) // <- gestisco il movimento al variare di "h" o "v"
+        if (_h != 0f || _v != 0f) // <- gestisco la fisica al variare di "h" o "v"
         {
-            Vector3 direction = new Vector3(_h, 0, _v).normalized;
+            Vector3 direction = new Vector3(_h, 0, _v); // <- creo un vettore direzione
 
             if (direction.sqrMagnitude > 0.05f)
             {
-                transform.forward = direction; // <- ruoto il personaggio nella direzione dove sto andando in modo smooth
+                direction.Normalize(); // <- quindi la normalizzo
 
-                // esegue un cambio di direzione smooth
+                //transform.forward = direction; // <- ruoto il personaggio nella direzione dove sto andando in modo smooth
+
+                //altro modo per eseguire un cambio di direzione smooth
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 Quaternion smoothRotation = Quaternion.Slerp(_rigidbody.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-                _rigidbody.MoveRotation(smoothRotation); // <- ruota il player tramite MoveRotation()
+                _rigidbody.MoveRotation(smoothRotation);
+
+                //Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, _rotationSpeed * Time.deltaTime, 0f); // <- utilizzo RotateTowards per eseguire un cambio di direzione smooth
+                //transform.rotation = Quaternion.LookRotation(newDirection);
+
                 _rigidbody.MovePosition(_rigidbody.position + direction * (_currentSpeed * Time.deltaTime)); // <- eseguo il movimento tramite MovePosition()
             }
         }
@@ -101,7 +107,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    // ^- grazie Jacopo per questa codifica dell'IF :)
     }
 
-    private void OnJump() // <- gestisce il salto
+    private void OnJump() // <- gestisce il doppio salto
     {
         if (_groundChecker.IsGrounded) _jumpCount = 0; // <- reset contatore dei salti se siamo a terra
 

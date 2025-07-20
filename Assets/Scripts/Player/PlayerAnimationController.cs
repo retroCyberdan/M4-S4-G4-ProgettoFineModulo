@@ -6,8 +6,8 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] private string _forwardName = "forward";
     [SerializeField] private string _vSpeedName = "vSpeed";
-    [SerializeField] private string _isGroundedName = "isGrounded";
     [SerializeField] private string _jumpName = "jump";
+    [SerializeField] private string _isGroundedName = "isGrounded";
     [SerializeField] private float _forwardRange = 2;
     private Animator _animator;
     private Rigidbody _rigidbody;
