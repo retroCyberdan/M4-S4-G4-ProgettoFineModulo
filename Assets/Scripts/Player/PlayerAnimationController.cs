@@ -22,7 +22,7 @@ public class PlayerAnimationController : MonoBehaviour
     void Update()
     {
         float v = Input.GetAxis("Vertical");
-        _animator.SetFloat(_forwardName, v * 2);
-        _animator.SetFloat(_vSpeedName, _rigidbody.velocity.y);
+        //_animator.SetFloat(_forwardName, v * 2);
+        //_animator.SetFloat(_vSpeedName, _rigidbody.velocity.y);
     }
 }

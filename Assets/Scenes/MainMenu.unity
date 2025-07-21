@@ -266,6 +266,8 @@ GameObject:
   m_Component:
   - component: {fileID: 204016611}
   - component: {fileID: 204016610}
+  - component: {fileID: 204016613}
+  - component: {fileID: 204016612}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -300,6 +302,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &204016612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204016609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9080dc1edc6d117489375b71b34c5725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicClip: {fileID: 8300000, guid: f2c33622187ec4676b363720f8b84f46, type: 3}
+  volume: 0.5
+  persistOnLoad: 1
+--- !u!114 &204016613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204016609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff84c2547b4a7774683cf46495d955a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &353259189
 GameObject:
   m_ObjectHideFlags: 0
