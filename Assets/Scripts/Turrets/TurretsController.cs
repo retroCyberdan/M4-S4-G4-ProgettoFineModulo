@@ -41,6 +41,7 @@ public class TurretsController : MonoBehaviour
     void ShootAtPlayer() // <- generazione del bullet
     {
         GameObject bulletClone = Instantiate(_bulletPrefab, _barrelSpawnPoint.position, _head.rotation);
+        //GameObject bulletClone = BulletPool.BulletPooling.GetBullet();
         bulletClone.GetComponent<Rigidbody>().AddForce(_head.forward * 10f, ForceMode.Impulse);
         //Destroy(bulletClone, _lifeSpawn);
     }
